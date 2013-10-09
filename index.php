@@ -209,7 +209,7 @@
 			
 			date = year + "-" + month + "-" + day;// + " " + hours + ":00:00";
 			
-			$.get('./screen2-build5/search.php?q=' + point.series.name + '&count=10&until=' + date, function(data){
+			$.get('./search.php?q=' + point.series.name + '&count=10&until=' + date, function(data){
 				data = JSON.parse(data);
 				xLabel.innerHTML = data;
 			});
@@ -375,7 +375,7 @@
     $(document).ready(function () {
 		
 		//Code to get saved searches from database 
-		$.get('./screen2-build5/get-saved-searches.php', function(data){
+		$.get('./get-saved-searches.php', function(data){
 			$('div.saved').append(data);
 			if (typeof query_string.keywords === 'undefined') { 
                      return;
@@ -400,7 +400,7 @@
 			stroke: true,
 			preserve: true,
 			interpolation: 'linear',
-			dataURL: './screen2-build5/chart-data.php?keywords=' + query_string.keywords + '&hours=15000',
+			dataURL: './chart-data.php?keywords=' + query_string.keywords + '&hours=15000',
 			/*onData: function(d) { 
 				return d;
 			},*/
@@ -491,7 +491,7 @@
 		//Code to get the top ten trends
 		
 		// Parse out the JSON object 
-		$.get('./screen2-build5/trend.php', function(data){
+		$.get('./trend.php', function(data){
 			var ul = $('div.top-ten ul');
 			data = JSON.parse(data);
 			 $(data).each(function(index, trend) {
@@ -554,7 +554,7 @@
     
     <div class="content">
         <div class="search">
-            <form class="search" action="./screen2-build5/update-data.php" method="get">
+            <form class="search" action="./update-data.php" method="get">
                 <input id="q" results=5 type="search" name="q" placeholder="Search Keyword or Topic"/>
                 <input id="update" type="button" value="Go" />
             </form>
@@ -593,7 +593,7 @@
         <div class="twitter-login-icon">
             
         </div>
-        <form action="./screen2-build5/twitter_login.php" method="get">
+        <form action="./twitter_login.php" method="get">
               <input type="submit" class="twitter-submit" value="Sign In" >
         </form>
         </div>

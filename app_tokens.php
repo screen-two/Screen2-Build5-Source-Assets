@@ -1,4 +1,4 @@
-<?php
+scf<?php
 
 // OAuth tokens for single-user programming
 // After you create an app you MUST copy 
