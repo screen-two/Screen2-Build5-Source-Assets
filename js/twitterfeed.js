@@ -88,7 +88,7 @@ $.fn.twitterFeed = function(options) {
 		
 		tweetFeed.html(headerHTML + loadingHTML);
 		
-		$.getJSON('http://digitalinc.ie/screen-two-test-branch/multiple-feeds/get-tweets1.0.php?type=' + settings.type + '&q=' + settings.q, 
+		$.getJSON('./screen-two-test-branch/multiple-feeds/get-tweets1.0.php?type=' + settings.type + '&q=' + settings.q, 
         function(feeds) {   
 		   //alert(feeds);
 		   if(settings.type == 'search') {
@@ -213,7 +213,7 @@ $.fn.twitterFeed = function(options) {
 	
 	$('#twitter-feed').html(headerHTML + loadingHTML);
 	 
-    $.getJSON('http://digitalinc.ie/twitter-test/get-tweets1.0.php', 
+    $.getJSON('./twitter-test/get-tweets1.0.php', 
         function(feeds) {   
 		   //alert(feeds);
             var feedHTML = '';

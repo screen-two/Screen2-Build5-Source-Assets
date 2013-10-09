@@ -1,4 +1,4 @@
-<?php session_start(); ?>
+
 <!doctype html>
 <html>
     <head>
@@ -209,7 +209,7 @@
 			
 			date = year + "-" + month + "-" + day;// + " " + hours + ":00:00";
 			
-			$.get('http://digitalinc.ie/screen2-build5/search.php?q=' + point.series.name + '&count=10&until=' + date, function(data){
+			$.get('./screen2-build5/search.php?q=' + point.series.name + '&count=10&until=' + date, function(data){
 				data = JSON.parse(data);
 				xLabel.innerHTML = data;
 			});
@@ -375,7 +375,7 @@
     $(document).ready(function () {
 		
 		//Code to get saved searches from database 
-		$.get('http://digitalinc.ie/screen2-build5/get-saved-searches.php', function(data){
+		$.get('./screen2-build5/get-saved-searches.php', function(data){
 			$('div.saved').append(data);
 			if (typeof query_string.keywords === 'undefined') { 
                      return;
@@ -400,7 +400,7 @@
 			stroke: true,
 			preserve: true,
 			interpolation: 'linear',
-			dataURL: 'http://digitalinc.ie/screen2-build5/chart-data.php?keywords=' + query_string.keywords + '&hours=15000',
+			dataURL: './screen2-build5/chart-data.php?keywords=' + query_string.keywords + '&hours=15000',
 			/*onData: function(d) { 
 				return d;
 			},*/
@@ -491,7 +491,7 @@
 		//Code to get the top ten trends
 		
 		// Parse out the JSON object 
-		$.get('http://digitalinc.ie/screen2-build5/trend.php', function(data){
+		$.get('./screen2-build5/trend.php', function(data){
 			var ul = $('div.top-ten ul');
 			data = JSON.parse(data);
 			 $(data).each(function(index, trend) {
@@ -529,12 +529,7 @@
 
     <div id="menu" class="main-navigation cbp-spmenu-push">
         <nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
-			<?php 
-                if(!empty($_SESSION['username'])){  ?>
-            <?php 
-                    require_once('user-detail.php');
-                }
-        	?>
+			
         	<a href="#" id="refresh">Update Chart</a>
         	<div class="clear"></div>
         	<!--Snippet for accordion taken from  http://jqueryui.com/accordion/ -->
@@ -555,12 +550,11 @@
     </div>
     <!-- END main-navigation -->
 
-	<?php 
-    if(!empty($_SESSION['username'])){  ?>
+	
     
     <div class="content">
         <div class="search">
-            <form class="search" action="http://digitalinc.ie/screen2-build5/update-data.php" method="get">
+            <form class="search" action="./screen2-build5/update-data.php" method="get">
                 <input id="q" results=5 type="search" name="q" placeholder="Search Keyword or Topic"/>
                 <input id="update" type="button" value="Go" />
             </form>
@@ -591,9 +585,7 @@
     </script>
     
     
-    <?php 
-    } else {
-     ?>
+   
     <div class="login-wrapper">
     	<img src="./images/twitter-icon.png" alt="twitter-bird" />
         <h3>Sign in to your account</h3>
@@ -601,7 +593,7 @@
         <div class="twitter-login-icon">
             
         </div>
-        <form action="http://digitalinc.ie/screen2-build5/twitter_login.php" method="get">
+        <form action="./screen2-build5/twitter_login.php" method="get">
               <input type="submit" class="twitter-submit" value="Sign In" >
         </form>
         </div>
@@ -610,7 +602,7 @@
     <!-- END login-wrapper -->
 
     <div class="clear"></div>
-    <?php } ?>
+    
 
     <div class="tabs">
     <div class="tab-01"></div>
