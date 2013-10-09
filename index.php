@@ -5,20 +5,16 @@
     <meta charset="UTF-8">
     <title>Screen&sup2; Build 5</title>
     <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <script src="./js/jquery.ui.touch-punch.min.js"></script>
     <script src="http://d3js.org/d3.v3.js"></script>
 	<script src="./js/rickshaw/rickshaw.js"></script>
-    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
     <script type="text/javascript" src="js/twitterfeed.js"></script>
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
     <link href="css/styles.css" rel="stylesheet" type="text/css" />
     <link href="css/rickshaw.css" rel="stylesheet" type="text/css" />
     <link href='http://fonts.googleapis.com/css?family=Merriweather:400,300,700' rel='stylesheet' type='text/css'>
-    <style>
-		.chart-container {
-			width: 700px;
-			margin: 0 auto 0 auto;
-		}
-	</style>
+    
     <script>
 	//JSON Parser 
 	//developerdrive.com
@@ -399,7 +395,7 @@
 		var config = {
 			element: document.getElementById("chart"),
 			width: 700,
-			height: 500,
+			height: 400,
 			renderer: 'digitalinc',
 			stroke: true,
 			preserve: true,
@@ -415,9 +411,12 @@
 				var tweets = new Rickshaw.Graph.TweetDetails({ graph: graph });
 				//tweets.render();
 				
+				//touch events added via http://touchpunch.furf.com/
 				var slider = new Rickshaw.Graph.RangeSlider( {
 					graph: graph,
 					element: $('#slider')
+					
+					
 				} );
 				
 				
@@ -453,8 +452,18 @@
 		$('#refresh').click(function(event) {
 			event.preventDefault();
 			var keywords = '';
-			$('div.saved input:checked').each(function(){
-				keywords += ',' + $(this).val();
+			
+			var selector = 'div.saved input:checked';
+			if($('#accordion h3.trend-header').hasClass('ui-state-active')){
+				selector = 'div.top-ten input:checked';
+			}
+			
+			$(selector).each(function(){
+				var keyword = $(this).val()
+				if(keyword.substr(0,1) == '#'){
+					keyword = keyword.substr('1');
+				}
+				keywords += ',' + keyword;
 			});
 			//remove leading comma
 			keywords = keywords.substring(1);
@@ -489,16 +498,6 @@
 				 //<input type="checkbox" value="' . $row['search_terms'] . '" />' . $row['search_terms'] . '
 				//ul.append($(document.createElement('li')).text(trend.name));
 				ul.append('<li><input type="checkbox" value="' + trend.name + '" />' + trend.name + '</li>');
-			});
-			
-			
-			$('div.top-ten ul').click(function(event){
-				var target = $(event.target);
-				if(target.is('input')){
-					document.location = "update-data.php?q=" + target.text().substr(1) + '&hours=15000';
-					//$('#s').val(target.text());
-					//return updateChart(event);
-				}
 			});
 		});
 		//END Top Ten Trends
@@ -540,13 +539,13 @@
         	<div class="clear"></div>
         	<!--Snippet for accordion taken from  http://jqueryui.com/accordion/ -->
         	<div id="accordion">
-            	<h3>Saved Searches</h3>
+            	<h3 class="saved-header">Saved Searches</h3>
           		<div class="saved"> </div>
-          		<h3>Trends</h3>
+          		<h3 class="trend-header">Trends</h3>
           		<div class="top-ten">
                     <ul>
                     </ul>
-          	</div>
+          		</div>
             </div>
         	<div id="logout-wrapper">
               <button id="logout">Logout</button>
@@ -562,7 +561,7 @@
     <div class="content">
         <div class="search">
             <form class="search" action="http://digitalinc.ie/screen2-build5/update-data.php" method="get">
-                <input id="q" results=5 type="search" name="q" value="Search #, Keyword, Topic " />
+                <input id="q" results=5 type="search" name="q" placeholder="Search Keyword or Topic"/>
                 <input id="update" type="button" value="Go" />
             </form>
         </div>
@@ -571,7 +570,6 @@
 		<div class="chart-container">
             <div id="chart"></div>
             <div id="timeline"></div>
-            <h6>Slider</h6>
 			<div id="slider"></div>
         </div>
     </div>
@@ -614,6 +612,15 @@
     <div class="clear"></div>
     <?php } ?>
 
-    
+    <div class="tabs">
+    <div class="tab-01"></div>
+    	<div class="trends">
+        	<div class="Trend-01">Tab 1</div>
+            <div class="Trend-02">Tab2</div>
+            <div class="Trend-03">Tab 3</div>
+        </div>
+     <div class="tab-03"></div>
+    	
+    </div>
 </body>
 </html>

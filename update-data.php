@@ -11,6 +11,11 @@ if( isset($_GET) && isset($_GET['q']) ){
 	die('no params provided');
 }
 
+if($q == ''){
+	header('Location: index.php');
+	exit;
+}
+
 //connect to database
 mysql_connect('mysql1859int.cp.blacknight.com', 'u1148707_screen2', 'Arch1p3lag0');  
 mysql_select_db('db1148707_screen2'); 
